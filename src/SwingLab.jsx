@@ -141,6 +141,8 @@ export default function SwingLab() {
   const chunksRef        = useRef([]);
   const previewRef       = useRef(null);
   const fileRef          = useRef(null);
+  const importRef = useRef(null);
+const cameraInputRef = useRef(null);
   const importRef        = useRef(null);
 
   // ── STORAGE LOAD ─────────────────────────────────────────
@@ -764,7 +766,14 @@ export default function SwingLab() {
             <div style={{fontSize:16,fontFamily:"'Syne',sans-serif",fontWeight:700,color:C.accent,marginBottom:4}}>{pendingSwings.length>0?"Add Swing":"Upload Video"}</div>
             <div style={{fontSize:16,color:C.muted}}>Tap or drop video file</div>
           </div>
-          <div onClick={startCamera} style={{flex:1,border:`2px solid ${C.border}`,borderRadius:10,padding:"28px 10px",background:C.card,textAlign:"center",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:8}}>
+          <div onClick={()=>cameraInputRef.current?.click()} style={{flex:1,border:`2px solid ${C.border}`,borderRadius:10,padding:"28px 10px",background:C.card,textAlign:"center",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:8}}>
+  <input ref={cameraInputRef} type="file" accept="video/*" capture="environment" style={{display:"none"}} onChange={async e=>{
+    const files = Array.from(e.target.files||[]);
+    for(const file of files) await handleFileInput(file);
+  }}/>
+  <div style={{color:C.accent}}>{Icons.cam}</div>
+  <div style={{fontSize:16,color:C.muted,fontFamily:"'JetBrains Mono',monospace"}}>Record</div>
+</div>
             <div style={{color:C.accent}}>{Icons.cam}</div>
             <div style={{fontSize:16,color:C.muted,fontFamily:"'JetBrains Mono',monospace"}}>Record</div>
           </div>
