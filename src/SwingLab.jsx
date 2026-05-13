@@ -246,7 +246,7 @@ export default function SwingLab() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-opus-4-5",
         max_tokens: 1000,
         system: `You are an expert golf coach. Persistent faults: ${persistent.join(", ") || "none yet"}. Club: ${currentClub}. ${currentFlight ? `Ball flight: ${currentFlight}.` : ""} This is swing #${swingNum} in this session. Respond ONLY with valid JSON — no markdown, no backticks.`,
         messages: [{ role:"user", content: [
