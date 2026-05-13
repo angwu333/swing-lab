@@ -751,7 +751,10 @@ export default function SwingLab() {
         </div>
       ) : (
         <div style={{margin:"0 16px 12px",display:"flex",gap:8}}>
-          <input ref={fileRef} type="file" accept="video/*" style={{display:"none"}} onChange={e=>handleFileInput(e.target.files?.[0])}/>
+          <input ref={fileRef} type="file" accept="video/*" multiple style={{display:"none"}} onChange={async e=>{
+  const files = Array.from(e.target.files||[]);
+  for(const file of files) await handleFileInput(file);
+}}/>
           <div onClick={()=>fileRef.current?.click()}
             onDragOver={e=>{e.preventDefault();setDragOver(true);}}
             onDragLeave={()=>setDragOver(false)}
